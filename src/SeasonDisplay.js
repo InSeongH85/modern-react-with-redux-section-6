@@ -1,23 +1,32 @@
 import React from 'react';
 
+const seaosnConfig = {
+  summer: {
+    text: "Let's hit the beach!",
+    iconName: 'sun'
+  },
+  winter: {
+    text: "Burr it is Cold!",
+    iconName: 'snowflake'
+  }
+};
+
 const getSeason = (lat, month) => {
-  if (month <= 2 ||  month === 11) {
-    return lat > 0 ? 'winter' : 'spring'
-  } else if (month >= 3 && month <= 6) {
-    return lat > 0 ? 'spring' : 'summer'
-  } else if (month >=7 && month <= 9) {
-    return lat > 0 ? 'summer' : 'fall'
-  } else if (month >= 9 && month <= 10) {
-    return lat > 0 ? 'fall' : 'winter'
+  if (month > 2 && month < 9) {
+    return lat > 0 ? 'summer' : 'winter'
+  } else {
+    return lat > 0 ? 'winter' : 'summer'
   }
 }
 
 const SeasonDisplay = (props) => {
-  const season = getSeason(props.lat, new Date().getMonth())
-
-  console.log(season);
-  
-  return <div>Season Display</div>;
+  const season = getSeason(props.lat, new Date().getMonth());
+  const { text, iconName } = seaosnConfig[season] // { text, iconName }
+  return <div>
+    <i className={`${iconName} icon` } />
+    <h1>{text}</h1>
+    <i className={`${iconName} icon`} />
+  </div>;
 };
 
 export default SeasonDisplay;
