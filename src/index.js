@@ -3,28 +3,15 @@ import ReactDOM from 'react-dom';
 // https://developer.mozilla.org/ko/docs/WebAPI/Using_geolocation
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    // THIS IS THE ONLY TIME we do direct assignment
-    // to this.state
-    this.state = { lat: null, errorMessage: '' };
-
-    window.navigator.geolocation.getCurrentPosition(
-      position =>  {
-        // We called setState!!
-        this.setState({ lat: position.coords.latitude });
-
-        //We did not!!
-        // this.state.lat = position.coords.latitude;
-      },
-      err => {
-        this.setState({ errorMessage: err.message });
-      }
-    );
-  }
+  
+  state = { lat: null, errorMessage: ''};
   
   componentDidMount() {
     console.log('My Component was rendered to the screen');
+    window.navigator.geolocation.getCurrentPosition(
+      position =>  this.setState({ lat: position.coords.latitude }),
+      err => this.setState({ errorMessage: err.message })
+    );
   }
 
   componentDidUpdate() {
